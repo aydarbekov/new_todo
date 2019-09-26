@@ -10,9 +10,9 @@
     <label for="{{ field.id_for_label }}">{{ field.label }}*</label><br/>
     {% if field.errors %}
         {{ field }}
-        {% for error in field.errors %}
-            <p class="form_error">{{ error }}</p>
-        {% endfor %}
+{#        {% for error in field.errors %}#}
+{#            <p class="form_error">{{ error }}</p>#}
+{#        {% endfor %}#}
     {% else %}
         {{ field }}
     {% endif %}

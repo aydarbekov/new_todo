@@ -37,16 +37,33 @@ class TaskCreateView(View):
             return redirect('task_view', pk=task.pk)
         else:
             return render(request, 'task_create.html', context={'form': form})
-    #
-    # if request.method == 'GET':
-    #     form = TaskForm()
-    #     return render(request, 'task_create.html', context={'form': form})
-    # elif request.method == 'POST':
-    #     form = TaskForm(data=request.POST)
-    #     if form.is_valid():
-    #         data = form.cleaned_data
-    #         task = Article.objects.create(description=data['description'], full_descr=data['full_descr'],
-    #                                       status=data['status'], date=data['date'])
-    #         return redirect('task_view', pk=task.pk)
-    #     else:
-    #         return render(request, 'task_create.html', context={'form': form})
+
+
+class TaskUpdateView(TemplateView):
+
+    def get(self, request, **kwargs):
+        task = get_object_or_404(Task, pk=kwargs['pk'])
+        form = TaskForm(data={'description': task.description, 'full_descr': task.full_descr, 'status': task.status,
+                              'type': task.type})
+        return render(request, 'update.html', context={'form': form, 'task': task})
+
+    def post(self, request, **kwargs):
+        task = get_object_or_404(Task, pk=kwargs['pk'])
+        form = TaskForm(data=request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            task.description = data['description']
+            task.full_descr = data['full_descr']
+            task.status = data['status']
+            task.type = data['type']
+            task.save()
+            return redirect('task_view', pk=task.pk)
+        else:
+            return render(request, 'update.html', context={'form': form})
+
+# def task_update_view(request, pk):
+#     task = get_object_or_404(Article, pk=pk)
+#     if request.method == 'GET':
+#         form = TaskForm(data={'description': task.description, 'full_descr': task.full_descr, 'status': task.status, 'date': task.date})
+#         return render(request, 'update.html', context={'form': form, 'task': task})
+#     elif request.method == 'POST':

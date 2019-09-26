@@ -15,8 +15,8 @@
        <div>Create date: {{ task.date }}</div>
        <a href="{% url 'task_view' task.pk %}">More...</a>
 
-       <a href=#>Edit</a>
-{#       "{% url 'task_update' task.pk %}"#}
+       <a href="{% url 'task_update' task.pk %}">Edit</a>
+
        <a href=#>Delete</a>
 {#       "{% url 'task_delete' task.pk %}"#}
        <hr/>

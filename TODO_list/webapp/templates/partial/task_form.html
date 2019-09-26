@@ -1,0 +1,25 @@
+{% csrf_token %}
+
+{#{% form.as_p %} вместо всего, вариант для теста#}
+
+{% for error in form.non_field_errors %}
+   <p class="form-error">{{ error }}</p>
+{% endfor %}
+
+{% for field in form %}
+    <label for="{{ field.id_for_label }}">{{ field.label }}*</label><br/>
+    {% if field.errors %}
+        {{ field }}
+        {% for error in field.errors %}
+            <p class="form_error">{{ error }}</p>
+        {% endfor %}
+    {% else %}
+        {{ field }}
+    {% endif %}
+    <br/>
+{% endfor %}
+<br/>
+
+
+<input type="submit" value="{{ button_text}}"/>
+

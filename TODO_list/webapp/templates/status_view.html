@@ -1,25 +1,17 @@
 {% extends 'base.html' %}
 {% block menu %}
-   <li><a href="{% url 'task_create' %}">Add Task</a></li>
-   <li><a href="{% url 'types_view' %}">Types</a></li>
-   <li><a href="{% url 'status_view' %}">Statuses</a></li>
-
+   <li><a href="{% url 'status_create' %}">Add Status</a></li>
 {% endblock %}
 {% block content %}
-   <h1>Tasks:</h1>
+   <h1>Statuses:</h1>
    <hr/>
     <form method="POST" action="{% url "index"  %}">
         {% csrf_token %}
-   {% for task in tasks %}
-       <h2><input type="checkbox" value="{{ task.pk }}" id="{{ task.pk }}" name="del" > {{ task.description }}</h2>
-       <div>Status: {{ task.status }}</div>
-       <div>Type: {{ task.type }}</div>
-       <div>Create date: {{ task.date }}</div>
-       <a href="{% url 'task_view' task.pk %}">More...</a>
+   {% for status in statuses %}
+       <h2><input type="checkbox" value="{{ status.pk }}" id="{{ status.pk }}" name="del" > {{ status.status }}</h2>
+       <a href="{% url 'status_update' status.pk %}">Edit</a>
 
-       <a href="{% url 'task_update' task.pk %}">Edit</a>
-
-       <a href="{% url 'task_delete' task.pk %}">Delete</a>
+       <a href="{% url 'status_delete' status.pk %}">Delete</a>
 
        <hr/>
    {% endfor %}

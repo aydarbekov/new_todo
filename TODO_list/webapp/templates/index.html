@@ -17,8 +17,8 @@
 
        <a href="{% url 'task_update' task.pk %}">Edit</a>
 
-       <a href=#>Delete</a>
-{#       "{% url 'task_delete' task.pk %}"#}
+       <a href="{% url 'task_delete' task.pk %}">Delete</a>
+
        <hr/>
    {% endfor %}
 

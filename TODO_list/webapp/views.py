@@ -61,9 +61,14 @@ class TaskUpdateView(TemplateView):
         else:
             return render(request, 'update.html', context={'form': form})
 
-# def task_update_view(request, pk):
-#     task = get_object_or_404(Article, pk=pk)
-#     if request.method == 'GET':
-#         form = TaskForm(data={'description': task.description, 'full_descr': task.full_descr, 'status': task.status, 'date': task.date})
-#         return render(request, 'update.html', context={'form': form, 'task': task})
-#     elif request.method == 'POST':
+class TaskDeleteView(TemplateView):
+    def get(self, request, *args, **kwargs):
+        task = get_object_or_404(Task, pk=kwargs['pk'])
+        return render(request, 'delete.html', context={'task': task})
+
+    def post(self, request, **kwargs):
+        task = get_object_or_404(Task, pk=kwargs['pk'])
+
+        task.delete()
+        return redirect('index')
+

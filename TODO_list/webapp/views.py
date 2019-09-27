@@ -14,6 +14,11 @@ class IndexView(TemplateView):
         context['tasks'] = Task.objects.all()
         return context
 
+    def post(self, request, *args, **kwargs):
+        task_del = request.POST.getlist('del')
+        Task.objects.filter(pk__in=task_del).delete()
+        return redirect('index')
+
 class TaskView(TemplateView):
     template_name = 'task_view.html'
 
@@ -84,6 +89,11 @@ class TypeView(TemplateView):
         context['types'] = Type.objects.all()
         return context
 
+    def post(self, request, *args, **kwargs):
+        type_del = request.POST.getlist('del')
+        Type.objects.filter(pk__in=type_del).delete()
+        return redirect('types_view')
+
 
 class TypeCreateView(View):
 
@@ -140,6 +150,11 @@ class StatusView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['statuses'] = Status.objects.all()
         return context
+
+    def post(self, request, *args, **kwargs):
+        status_del = request.POST.getlist('del')
+        Status.objects.filter(pk__in=status_del).delete()
+        return redirect('status_view')
 
 
 class StatusCreateView(View):

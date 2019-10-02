@@ -4,41 +4,31 @@ from django.views.generic.base import View
 
 from webapp.models import Task
 from webapp.forms import TaskForm
+from webapp.views.base_views import DetailView, DeleteView
 
 
 class IndexView(ListView):
     template_name = 'task/index.html'
     context_object_name = 'tasks'
     model = Task
+    ordering = '-date'
     paginate_by = 5
     paginate_orphans = 1
 
+class TasksDelete(DeleteView):
+    model = Task
+    url = 'index'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['tasks'] = Task.objects.all()
-    #     return context
-    #
+    # Добавить удаление галочками
     # def post(self, request, *args, **kwargs):
     #     task_del = request.POST.getlist('del')
     #     Task.objects.filter(pk__in=task_del).delete()
     #     return redirect('index')
-class TaskView(TemplateView):
+
+class TaskView(DetailView):
     template_name = 'task/task.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['task'] = get_object_or_404(Task, pk=kwargs['pk'])
-        return context
-
-# class TaskView(TemplateView):
-#     template_name = 'task/task.html'
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['task'] = get_object_or_404(Task, pk=kwargs['pk'])
-#         return context
-
+    context_key = 'task'
+    model = Task
 
 class TaskCreateView(View):
 

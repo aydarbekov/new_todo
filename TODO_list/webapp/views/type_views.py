@@ -4,6 +4,7 @@ from django.views.generic.base import View
 
 from webapp.models import Type
 from webapp.forms import TypeForm
+from webapp.views.base_views import DeleteView
 
 
 class TypeView(ListView):
@@ -11,15 +12,9 @@ class TypeView(ListView):
     model = Type
     template_name = 'type/list.html'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['types'] = Type.objects.all()
-    #     return context
-    #
-    # def post(self, request, *args, **kwargs):
-    #     type_del = request.POST.getlist('del')
-    #     Type.objects.filter(pk__in=type_del).delete()
-    #     return redirect('types_view')
+class TypeDelete(DeleteView):
+    model = Type
+    url = 'types_view'
 
 
 class TypeCreateView(View):

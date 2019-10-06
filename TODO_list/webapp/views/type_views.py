@@ -1,4 +1,5 @@
-from django.views.generic import TemplateView, ListView
+from django.urls import reverse
+from django.views.generic import TemplateView, ListView, CreateView
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.base import View
 
@@ -12,25 +13,19 @@ class TypeView(ListView):
     model = Type
     template_name = 'type/list.html'
 
+
 class TypeDelete(DeleteView):
     model = Type
     url = 'types_view'
 
 
-class TypeCreateView(View):
+class TypeCreateView(CreateView):
+    template_name = 'type/create.html'
+    model = Type
+    form_class = TypeForm
 
-    def get(self, request, **kwargs):
-        form = TypeForm()
-        return render(request, 'type/create.html', context={'form': form})
-
-    def post(self, request, *args, **kwargs):
-        form = TypeForm(data=request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            Type.objects.create(type=data['type'])
-            return redirect('types_view')
-        else:
-            return render(request, 'type/create.html', context={'form': form})
+    def get_success_url(self):
+        return reverse('types_view')
 
 
 class TypeUpdateView(TemplateView):

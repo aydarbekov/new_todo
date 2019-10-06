@@ -1,10 +1,11 @@
-from django.views.generic import TemplateView, ListView
+from django.urls import reverse
+from django.views.generic import TemplateView, ListView, DetailView, CreateView
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.base import View
 
 from webapp.models import Task
 from webapp.forms import TaskForm
-from webapp.views.base_views import DetailView, DeleteView
+from webapp.views.base_views import DeleteView
 
 
 class IndexView(ListView):
@@ -15,36 +16,24 @@ class IndexView(ListView):
     paginate_by = 5
     paginate_orphans = 1
 
+
 class TasksDelete(DeleteView):
     model = Task
     url = 'index'
 
-    # Добавить удаление галочками
-    # def post(self, request, *args, **kwargs):
-    #     task_del = request.POST.getlist('del')
-    #     Task.objects.filter(pk__in=task_del).delete()
-    #     return redirect('index')
-
 class TaskView(DetailView):
     template_name = 'task/task.html'
-    context_key = 'task'
+    pk_url_kwarg = 'pk'
     model = Task
 
-class TaskCreateView(View):
 
-    def get(self, request, **kwargs):
-        form = TaskForm()
-        return render(request, 'task/create.html', context={'form': form})
+class TaskCreateView(CreateView):
+    template_name = 'task/create.html'
+    model = Task
+    form_class = TaskForm
 
-    def post(self, request, *args, **kwargs):
-        form = TaskForm(data=request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            task = Task.objects.create(description=data['description'], full_descr=data['full_descr'],
-                                          status=data['status'], type=data['type'])
-            return redirect('task_view', pk=task.pk)
-        else:
-            return render(request, 'task/create.html', context={'form': form})
+    def get_success_url(self):
+        return reverse('task_view', kwargs={'pk': self.object.pk})
 
 
 class TaskUpdateView(TemplateView):

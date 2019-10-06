@@ -1,4 +1,5 @@
-from django.views.generic import TemplateView, ListView
+from django.urls import reverse
+from django.views.generic import TemplateView, ListView, CreateView
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.base import View
 
@@ -12,24 +13,20 @@ class StatusView(ListView):
     context_object_name = 'statuses'
     model = Status
 
+
 class StatusDelete(DeleteView):
     model = Status
     url = 'status_view'
 
-class StatusCreateView(View):
 
-    def get(self, request, **kwargs):
-        form = StatusForm()
-        return render(request, 'status/create.html', context={'form': form})
+class StatusCreateView(CreateView):
+    template_name = 'status/create.html'
+    model = Status
+    form_class = StatusForm
 
-    def post(self, request, *args, **kwargs):
-        form = StatusForm(data=request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            Status.objects.create(status=data['status'])
-            return redirect('status_view')
-        else:
-            return render(request, 'status/create.html', context={'form': form})
+    def get_success_url(self):
+        return reverse('status_view')
+
 
 class StatusUpdateView(TemplateView):
 

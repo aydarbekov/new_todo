@@ -1,5 +1,8 @@
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.views.generic import TemplateView
+from django.views.generic.base import View
+
 
 class DeleteView(TemplateView):
     model = None
@@ -9,3 +12,23 @@ class DeleteView(TemplateView):
         delete = request.POST.getlist('del')
         self.model.objects.filter(pk__in=delete).delete()
         return redirect(self.url)
+
+
+class UpdateView(View):
+    form_class = None
+    template_name = None
+    model = None
+    redirect_url = ''
+    def get(self, request, *args, **kwargs):
+        obj = get_object_or_404(self.model, pk=kwargs['pk'])
+        form = self.form_class(instance=obj)
+        context = {'form': form, 'obj': obj}
+        return render(request, self.template_name, context)
+    def post(self, request, *args, **kwargs):
+        obj = get_object_or_404(self.model, pk=kwargs['pk'])
+        form = self.form_class(instance=obj, data=request.POST)
+        self.object = form.save()
+        return redirect(self.get_redirect_url())
+
+    def get_redirect_url(self):
+        return self.redirect_url

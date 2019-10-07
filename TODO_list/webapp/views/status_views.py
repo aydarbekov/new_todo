@@ -38,3 +38,4 @@ class StatusDeleteView(BaseDeleteView):
     model = Status
     template_name = 'status/delete.html'
     redirect_url = 'status_view'
+    podtv = False

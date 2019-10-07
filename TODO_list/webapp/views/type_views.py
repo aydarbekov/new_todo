@@ -37,4 +37,5 @@ class TypeDeleteView(BaseDeleteView):
     model = Type
     template_name = 'type/delete.html'
     redirect_url = 'types_view'
+    podtv = False
 

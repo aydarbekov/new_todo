@@ -18,10 +18,14 @@ class BaseDeleteView(TemplateView):
     model = None
     template_name = None
     redirect_url = ''
-    podtv = None
+    podtv = True
     def get(self, request, *args, **kwargs):
         obj = get_object_or_404(self.model, pk=kwargs['pk'])
-        return render(request, self.template_name, context={'obj': obj})
+        if self.podtv == True:
+            return render(request, self.template_name, context={'obj': obj})
+        elif self.podtv == False:
+            obj.delete()
+            return redirect(self.redirect_url)
 
     def post(self, request, **kwargs):
         obj = get_object_or_404(self.model, pk=kwargs['pk'])

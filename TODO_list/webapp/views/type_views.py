@@ -5,7 +5,7 @@ from django.views.generic.base import View
 
 from webapp.models import Type
 from webapp.forms import TypeForm
-from webapp.views.base_views import DeleteView, UpdateView
+from webapp.views.base_views import DeleteView, UpdateView, BaseDeleteView
 
 
 class TypeView(ListView):
@@ -33,14 +33,8 @@ class TypeUpdateView(UpdateView):
     model = Type
     redirect_url = 'types_view'
 
+class TypeDeleteView(BaseDeleteView):
+    model = Type
+    template_name = 'type/delete.html'
+    redirect_url = 'types_view'
 
-class TypeDeleteView(TemplateView):
-    def get(self, request, *args, **kwargs):
-        type = get_object_or_404(Type, pk=kwargs['pk'])
-        return render(request, 'type/delete.html', context={'type': type})
-
-    def post(self, request, **kwargs):
-        type = get_object_or_404(Type, pk=kwargs['pk'])
-
-        type.delete()
-        return redirect('types_view')

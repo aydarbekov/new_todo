@@ -14,6 +14,20 @@ class DeleteView(TemplateView):
         return redirect(self.url)
 
 
+class BaseDeleteView(TemplateView):
+    model = None
+    template_name = None
+    redirect_url = ''
+    podtv = None
+    def get(self, request, *args, **kwargs):
+        obj = get_object_or_404(self.model, pk=kwargs['pk'])
+        return render(request, self.template_name, context={'obj': obj})
+
+    def post(self, request, **kwargs):
+        obj = get_object_or_404(self.model, pk=kwargs['pk'])
+        obj.delete()
+        return redirect(self.redirect_url)
+
 class UpdateView(View):
     form_class = None
     template_name = None

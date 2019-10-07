@@ -5,7 +5,7 @@ from django.views.generic.base import View
 
 from webapp.models import Task
 from webapp.forms import TaskForm
-from webapp.views.base_views import DeleteView, UpdateView
+from webapp.views.base_views import DeleteView, UpdateView, BaseDeleteView
 
 
 class IndexView(ListView):
@@ -49,13 +49,7 @@ class TaskUpdateView(UpdateView):
 # , kwargs={'pk': self.object.pk})
 # , kwargs['pk']
 
-class TaskDeleteView(TemplateView):
-    def get(self, request, *args, **kwargs):
-        task = get_object_or_404(Task, pk=kwargs['pk'])
-        return render(request, 'task/delete.html', context={'task': task})
-
-    def post(self, request, **kwargs):
-        task = get_object_or_404(Task, pk=kwargs['pk'])
-
-        task.delete()
-        return redirect('index')
+class TaskDeleteView(BaseDeleteView):
+    model = Task
+    template_name = 'task/delete.html'
+    redirect_url = 'index'

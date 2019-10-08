@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
-{% block menu %}
-   <li><a href="{% url 'task_create' %}">Add Task</a></li>
-   <li><a href="{% url 'types_view' %}">Types</a></li>
-   <li><a href="{% url 'status_view' %}">Statuses</a></li>
 
+{% block menu %}
+    <li><a href="{% url 'task_create' %}">Add Task</a></li>
+    <li><a href="{% url 'types_view' %}">Types</a></li>
+    <li><a href="{% url 'status_view' %}">Statuses</a></li>
+    <li><a href="{% url 'projects_view' %}">Projects</a></li>
 {% endblock %}
+
 {% block content %}
     <h1>Tasks:</h1>
     <hr/>

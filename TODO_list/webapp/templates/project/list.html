@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{#{% block menu %}#}
+{#   <li><a href="{% url 'project_create' %}">Add Project</a></li>#}
+{#{% endblock %}#}
+
+{% block content %}
+    <h1>Projects:</h1>
+    <hr/>
+    {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
+{#    <form method="POST" action="{% url "mass_delete_projects"  %}">#}
+{#        {% csrf_token %}#}
+
+        {% for project in projects %}
+            <h2><input type="checkbox" value="{{ project.pk }}" id="{{ project.pk }}" name="del" style="height: 20px; width: 20px"> {{ project.name }}</h2>
+            <div>Description: {{ project.description }}</div>
+            <div>Creation date: {{ project.created_at }}</div>
+{#            <a href="{% url 'task_view' task.pk %}">More...</a>#}
+{#            <a href="{% url 'task_update' task.pk %}">Edit</a>#}
+{#            <a href="{% url 'task_delete' task.pk %}">Delete</a>#}
+            <hr/>
+        {% endfor %}
+
+{#        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">#}
+{#          Delete#}
+{#        </button>#}
+
+{#        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">#}
+{#          <div class="modal-dialog" role="document">#}
+{#            <div class="modal-content">#}
+{#              <div class="modal-header">#}
+{#                <h5 class="modal-title" id="exampleModalLabel">Are you sure want to delete task?</h5>#}
+{#                <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+{#                  <span aria-hidden="true">&times;</span>#}
+{#                </button>#}
+{#              </div>#}
+{#              <div class="modal-footer" style="justify-content: center">#}
+{#                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>#}
+{#                <input type="submit" value="Delete" class="btn btn-primary">#}
+{#              </div>#}
+{#            </div>#}
+{#          </div>#}
+{#        </div>#}
+
+{#    </form>#}
+    {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
+{% endblock %}

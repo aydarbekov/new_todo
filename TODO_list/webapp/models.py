@@ -10,6 +10,9 @@ class Project(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
 
+    def __str__(self):
+        return self.name
+
 class Task(models.Model):
     description = models.CharField(max_length=200, null=False, blank=False, verbose_name='Описание')
     full_descr = models.TextField(max_length=3000, null=True, blank=True, verbose_name='Подробное описание')

@@ -5,6 +5,7 @@ from django.views.generic.base import View
 
 from webapp.models import Task
 from webapp.forms import TaskForm
+from webapp.views.base_views import MassDeleteView
 
 
 class IndexView(ListView):
@@ -16,7 +17,7 @@ class IndexView(ListView):
     paginate_orphans = 1
 
 
-class TasksDelete(DeleteView):
+class TasksDelete(MassDeleteView):
     model = Task
     url = 'index'
 

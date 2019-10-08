@@ -1,10 +1,41 @@
 [
 {
+  "model": "webapp.project",
+  "pk": 1,
+  "fields": {
+    "name": "Project_1",
+    "description": "Project_1",
+    "created_at": "2019-10-08T15:11:53.015Z",
+    "updated_at": "2019-10-08T15:11:53.015Z"
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 2,
+  "fields": {
+    "name": "Project_2",
+    "description": "Project_2",
+    "created_at": "2019-10-08T15:12:06.944Z",
+    "updated_at": "2019-10-08T15:12:06.944Z"
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 3,
+  "fields": {
+    "name": "Project_3",
+    "description": "Project_3",
+    "created_at": "2019-10-08T15:12:20.472Z",
+    "updated_at": "2019-10-08T15:12:20.472Z"
+  }
+},
+{
   "model": "webapp.task",
   "pk": 1,
   "fields": {
     "description": "task_1",
     "full_descr": "full task 1",
+    "project": 1,
     "status": 1,
     "type": 1,
     "date": "2019-09-26"
@@ -16,6 +47,7 @@
   "fields": {
     "description": "task_2",
     "full_descr": "full task 2",
+    "project": 1,
     "status": 2,
     "type": 2,
     "date": "2019-09-26"
@@ -27,6 +59,7 @@
   "fields": {
     "description": "task_3",
     "full_descr": "full task 3",
+    "project": 3,
     "status": 3,
     "type": 3,
     "date": "2019-09-26"
@@ -38,6 +71,7 @@
   "fields": {
     "description": "task_4",
     "full_descr": "full task 4",
+    "project": 2,
     "status": 1,
     "type": 2,
     "date": "2019-09-26"
@@ -49,6 +83,7 @@
   "fields": {
     "description": "task_5",
     "full_descr": "full task 5",
+    "project": 3,
     "status": 1,
     "type": 3,
     "date": "2019-09-26"
@@ -56,46 +91,26 @@
 },
 {
   "model": "webapp.task",
-  "pk": 6,
+  "pk": 24,
   "fields": {
-    "description": "task_6",
-    "full_descr": "full task 6",
-    "status": 2,
-    "type": 2,
-    "date": "2019-09-26"
+    "description": "Task_6",
+    "full_descr": "Task 6",
+    "project": 3,
+    "status": 1,
+    "type": 1,
+    "date": "2019-10-08"
   }
 },
 {
   "model": "webapp.task",
-  "pk": 7,
+  "pk": 25,
   "fields": {
     "description": "task_7",
-    "full_descr": "full task 7",
+    "full_descr": "task 7",
+    "project": 2,
     "status": 2,
     "type": 3,
-    "date": "2019-09-26"
-  }
-},
-{
-  "model": "webapp.task",
-  "pk": 8,
-  "fields": {
-    "description": "task_8",
-    "full_descr": "full task 8",
-    "status": 3,
-    "type": 2,
-    "date": "2019-09-26"
-  }
-},
-{
-  "model": "webapp.task",
-  "pk": 9,
-  "fields": {
-    "description": "task_9",
-    "full_descr": "full task 9",
-    "status": 3,
-    "type": 3,
-    "date": "2019-09-26"
+    "date": "2019-10-08"
   }
 },
 {
@@ -145,7 +160,7 @@
   "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$150000$fPhk2KnHhFqC$OnfbAjEf2CqfVCEUayjhkB24NJAvpLzA6DcUbTDjqoc=",
-    "last_login": "2019-09-26T10:01:38.656Z",
+    "last_login": "2019-10-08T15:09:33.735Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",

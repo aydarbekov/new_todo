@@ -5,6 +5,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 from webapp.models import Status
 from webapp.forms import StatusForm
+from webapp.views.base_views import MassDeleteView
 
 
 class StatusView(ListView):
@@ -13,7 +14,7 @@ class StatusView(ListView):
     model = Status
 
 
-class StatusDelete(DeleteView):
+class StatusDelete(MassDeleteView):
     model = Status
     url = 'status_view'
 

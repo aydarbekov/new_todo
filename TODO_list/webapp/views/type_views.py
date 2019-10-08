@@ -5,6 +5,8 @@ from django.views.generic.base import View
 
 from webapp.models import Type
 from webapp.forms import TypeForm
+from webapp.views.base_views import MassDeleteView
+
 
 class TypeView(ListView):
     context_object_name = 'types'
@@ -12,7 +14,7 @@ class TypeView(ListView):
     template_name = 'type/list.html'
 
 
-class TypeDelete(DeleteView):
+class TypeDelete(MassDeleteView):
     model = Type
     url = 'types_view'
 

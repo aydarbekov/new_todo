@@ -3,8 +3,8 @@ from django.views.generic import TemplateView, ListView, DetailView, CreateView,
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.base import View
 
-from webapp.models import Task
-from webapp.forms import TaskForm
+from webapp.models import Task, Project
+from webapp.forms import TaskForm, ProjectTaskForm
 from webapp.views.base_views import MassDeleteView
 
 
@@ -52,3 +52,13 @@ class TaskDeleteView(DeleteView):
     context_object_name = 'obj'
     success_url = reverse_lazy('index')
 
+
+class TaskForProjectCreateView(CreateView):
+    template_name = 'task/create.html'
+    form_class = ProjectTaskForm
+
+    def form_valid(self, form):
+        project_pk = self.kwargs.get('pk')
+        project = get_object_or_404(Project, pk=project_pk)
+        project.tasks.create(**form.cleaned_data)
+        return redirect('project_view', pk=project_pk)

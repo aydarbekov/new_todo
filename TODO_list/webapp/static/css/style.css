@@ -70,3 +70,22 @@ body {
    background: #6a7dcc;
    color: #dddddd
 }
+
+.task {
+    border: solid 1px #cccccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.task p {
+    margin: 0 0 5px;
+}
+
+.task-links {
+    text-align: right;
+}
+
+.task .task-links {
+    margin: 5px 0 0;
+}

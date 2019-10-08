@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Project_view{% endblock %}
+
+{#{% block menu %}#}
+{#    <li><a href="{% url 'task_update' task.pk %}">Edit</a></li>#}
+{#    <li><a href="{% url 'task_delete' task.pk %}">Delete</a></li>#}
+{#{% endblock %}#}
+{% block content %}
+   <div class="container">
+       <h1>{{ project.name }}</h1>
+        <p>Description: {{ project.description }}</p>
+        <p>Created at: {{ project.created_at }}</p>
+        <p>Updated at: {{ project.updated_at }}</p>
+   </div>
+    <hr/>
+    <h3>Tasks:</h3>
+    {% for task in project.tasks.all %}
+        <div class="task">
+            <p><b>{{ task.description }}</b> created at {{ task.date }}</p>
+            <p>Status: {{ task.status }}</p>
+            <p>Type: {{ task.type }}</p>
+            <p class="projects-links">
+                <a href="{% url 'task_view' task.pk %}">More</a>
+{#                <a href="{% url 'comment_update' comment.pk %}">Edit</a>#}
+{#                <a href="{% url 'comment_delete' comment.pk %}">Delete</a>#}
+            </p>
+        </div>
+    {% empty %}
+        <p>No tasks yet.</p>
+    {% endfor %}
+    {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
+    <form action="{% url 'project_task_create' project.pk %}" method="POST" id="add_task">
+        {% include 'partial/task_form.html' with button_text='Add' %}
+    </form>
+{% endblock %}

@@ -1,11 +1,11 @@
-from django.urls import reverse
-from django.views.generic import TemplateView, ListView, CreateView
+from django.urls import reverse, reverse_lazy
+from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView
 from django.shortcuts import render, get_object_or_404, redirect
 
 
 from webapp.models import Status
 from webapp.forms import StatusForm
-from webapp.views.base_views import DeleteView, UpdateView, BaseDeleteView
+from webapp.views.base_views import BaseDeleteView
 
 
 class StatusView(ListView):
@@ -29,13 +29,16 @@ class StatusCreateView(CreateView):
 
 
 class StatusUpdateView(UpdateView):
-    form_class = StatusForm
+    model = Status
     template_name = 'status/update.html'
-    model = Status
-    redirect_url = 'status_view'
+    form_class = StatusForm
+    context_object_name = 'obj'
+    def get_success_url(self):
+        return reverse('status_view')
 
-class StatusDeleteView(BaseDeleteView):
-    model = Status
+
+class StatusDeleteView(DeleteView):
     template_name = 'status/delete.html'
-    redirect_url = 'status_view'
-    podtv = False
+    model = Status
+    context_object_name = 'obj'
+    success_url = reverse_lazy('status_view')

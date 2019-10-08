@@ -31,22 +31,3 @@ class BaseDeleteView(TemplateView):
         obj = get_object_or_404(self.model, pk=kwargs['pk'])
         obj.delete()
         return redirect(self.redirect_url)
-
-class UpdateView(View):
-    form_class = None
-    template_name = None
-    model = None
-    redirect_url = ''
-    def get(self, request, *args, **kwargs):
-        obj = get_object_or_404(self.model, pk=kwargs['pk'])
-        form = self.form_class(instance=obj)
-        context = {'form': form, 'obj': obj}
-        return render(request, self.template_name, context)
-    def post(self, request, *args, **kwargs):
-        obj = get_object_or_404(self.model, pk=kwargs['pk'])
-        form = self.form_class(instance=obj, data=request.POST)
-        self.object = form.save()
-        return redirect(self.get_redirect_url())
-
-    def get_redirect_url(self):
-        return self.redirect_url

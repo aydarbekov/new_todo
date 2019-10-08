@@ -5,8 +5,6 @@ from django.views.generic.base import View
 
 from webapp.models import Type
 from webapp.forms import TypeForm
-from webapp.views.base_views import BaseDeleteView
-
 
 class TypeView(ListView):
     context_object_name = 'types'

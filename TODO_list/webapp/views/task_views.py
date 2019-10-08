@@ -5,7 +5,6 @@ from django.views.generic.base import View
 
 from webapp.models import Task
 from webapp.forms import TaskForm
-from webapp.views.base_views import BaseDeleteView
 
 
 class IndexView(ListView):

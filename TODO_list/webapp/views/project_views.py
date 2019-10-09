@@ -3,7 +3,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 
 
 from webapp.models import Project
-from webapp.forms import TaskForm
+from webapp.forms import TaskForm, ProjectForm
 from webapp.views.base_views import MassDeleteView
 
 
@@ -16,11 +16,11 @@ class ProjectsListView(ListView):
     paginate_orphans = 1
 
 
-# class TasksDelete(MassDeleteView):
-#     model = Task
-#     url = 'index'
-#
-#
+class ProjectsDelete(MassDeleteView):
+    model = Project
+    url = 'projects_view'
+
+
 class ProjectView(DetailView):
     template_name = 'project/project.html'
     pk_url_kwarg = 'pk'
@@ -42,27 +42,27 @@ class ProjectView(DetailView):
     #     context['comments'] = page.object_list
     #     context['is_paginated'] = page.has_other_pages()
 #
-# class TaskCreateView(CreateView):
-#     template_name = 'task/create.html'
-#     model = Task
-#     form_class = TaskForm
-#
-#     def get_success_url(self):
-#         return reverse('task_view', kwargs={'pk': self.object.pk})
-#
-#
-# class TaskUpdateView(UpdateView):
-#     model = Task
-#     template_name = 'task/update.html'
-#     form_class = TaskForm
-#     context_object_name = 'obj'
-#     def get_success_url(self):
-#         return reverse('task_view', kwargs={'pk': self.object.pk})
-#
-#
-# class TaskDeleteView(DeleteView):
-#     template_name = 'task/delete.html'
-#     model = Task
-#     context_object_name = 'obj'
-#     success_url = reverse_lazy('index')
-#
+class ProjectCreateView(CreateView):
+    template_name = 'project/create.html'
+    model = Project
+    form_class = ProjectForm
+
+    def get_success_url(self):
+        return reverse('project_view', kwargs={'pk': self.object.pk})
+
+
+class ProjectUpdateView(UpdateView):
+    model = Project
+    template_name = 'project/update.html'
+    form_class = ProjectForm
+    context_object_name = 'obj'
+    def get_success_url(self):
+        return reverse('project_view', kwargs={'pk': self.object.pk})
+
+
+class ProjectDeleteView(DeleteView):
+    template_name = 'project/delete.html'
+    model = Project
+    context_object_name = 'obj'
+    success_url = reverse_lazy('projects_view')
+

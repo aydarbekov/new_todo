@@ -8,6 +8,7 @@
 {% endblock %}
 
 {% block content %}
+    {% include 'partial/simple_search.html' %}
     <h1>Tasks:</h1>
     <hr/>
     {% if is_paginated %}

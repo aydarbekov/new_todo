@@ -4,9 +4,9 @@
   "pk": 1,
   "fields": {
     "name": "Project_1",
-    "description": "Project_1",
+    "description": "Project_1mmm",
     "created_at": "2019-10-08T15:11:53.015Z",
-    "updated_at": "2019-10-08T15:11:53.015Z"
+    "updated_at": "2019-10-09T17:07:00.436Z"
   }
 },
 {
@@ -36,7 +36,7 @@
     "description": "task_1",
     "full_descr": "full task 1",
     "project": 1,
-    "status": 1,
+    "status": 3,
     "type": 1,
     "date": "2019-09-26"
   }
@@ -84,7 +84,7 @@
     "description": "task_5",
     "full_descr": "full task 5",
     "project": 3,
-    "status": 1,
+    "status": 3,
     "type": 3,
     "date": "2019-09-26"
   }
@@ -110,6 +110,42 @@
     "project": 2,
     "status": 2,
     "type": 3,
+    "date": "2019-10-08"
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 26,
+  "fields": {
+    "description": "qwe",
+    "full_descr": "qwe",
+    "project": 1,
+    "status": 1,
+    "type": 1,
+    "date": "2019-10-08"
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 27,
+  "fields": {
+    "description": "asd",
+    "full_descr": "asd",
+    "project": 2,
+    "status": 2,
+    "type": 1,
+    "date": "2019-10-08"
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 28,
+  "fields": {
+    "description": "zxc",
+    "full_descr": "zxc",
+    "project": 3,
+    "status": 1,
+    "type": 1,
     "date": "2019-10-08"
   }
 },

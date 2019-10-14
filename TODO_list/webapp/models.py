@@ -20,6 +20,7 @@ class Task(models.Model):
     status = models.ForeignKey('Status', related_name='task_status', on_delete=models.PROTECT, verbose_name='Статус')
     type = models.ForeignKey('Type', related_name='task_type', on_delete=models.PROTECT, verbose_name='Тип')
     date = models.DateField(auto_now_add=True, verbose_name='Дата выполнения')
+    update = models.DateTimeField(auto_now=True, verbose_name='Дата обновления',null=True, blank=False)
 
     def __str__(self):
         return self.description

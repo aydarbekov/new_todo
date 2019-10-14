@@ -1,0 +1,3 @@
+2.1 Task.objects.filter(status__status='done', updated_at__month=now.month) #не успел добавить поле updated_at, но код примерно так должен выглядеть.
+2.2 Type.objects.filter(task_type__project__name__icontains='Project_3').distinct()
+2.3 Project.objects.filter(tasks__description__icontains='task_1').distinct()

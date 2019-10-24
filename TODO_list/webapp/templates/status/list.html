@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block menu %}
-   <li><a href="{% url 'webapp:status_create' %}">Add Status</a></li>
+    {% if request.user.is_authenticated %}
+        <li><a href="{% url 'webapp:status_create' %}">Add Status</a></li>
+    {% endif %}
 {% endblock %}
 {% block content %}
    <h1>Statuses:</h1>
@@ -9,10 +11,10 @@
         {% csrf_token %}
    {% for status in statuses %}
        <h2><input type="checkbox" value="{{ status.pk }}" id="{{ status.pk }}" name="del" style="height: 20px; width: 20px"> {{ status.status }}</h2>
-       <a href="{% url 'webapp:status_update' status.pk %}">Edit</a>
-
-       <a href="{% url 'webapp:status_delete' status.pk %}">Delete</a>
-
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'webapp:status_update' status.pk %}">Edit</a>
+            <a href="{% url 'webapp:status_delete' status.pk %}">Delete</a>
+        {% endif %}
        <hr/>
    {% endfor %}
 

@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}Task_view{% endblock %}
 {% block menu %}
-    <li><a href="{% url 'webapp:task_update' task.pk %}">Edit</a></li>
-    <li><a href="{% url 'webapp:task_delete' task.pk %}">Delete</a></li>
+    {% if request.user.is_authenticated %}
+        <li><a href="{% url 'webapp:task_update' task.pk %}">Edit</a></li>
+        <li><a href="{% url 'webapp:task_delete' task.pk %}">Delete</a></li>
+    {% endif %}
 {% endblock %}
 {% block content %}
    <div class="container">

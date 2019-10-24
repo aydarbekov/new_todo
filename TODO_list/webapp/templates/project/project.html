@@ -32,7 +32,10 @@
     {% if is_paginated %}
         {% include 'partial/pagination.html' %}
     {% endif %}
-    <form action="{% url 'webapp:project_task_create' project.pk %}" method="POST" id="add_task">
-        {% include 'partial/task_form.html' with button_text='Add' %}
-    </form>
+    {% if request.user.is_authenticated %}
+        <form action="{% url 'webapp:project_task_create' project.pk %}" method="POST" id="add_task">
+            {% include 'partial/task_form.html' with button_text='Add' %}
+        </form>
+    {% endif %}
+
 {% endblock %}

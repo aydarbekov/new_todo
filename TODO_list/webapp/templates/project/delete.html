@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block title %}Delete Project{% endblock %}
 {% block menu %}
-    <li><a href="{% url 'project_view' obj.pk %}">View</a></li>
+    <li><a href="{% url 'webapp:project_view' obj.pk %}">View</a></li>
 {% endblock %}
 {% block content %}
     <h1>Are you sure want to delete project "{{ obj }}"?</h1>
-    <form method="POST" action="{% url "project_delete" obj.pk %}" class="text-center">
+    <form method="POST" action="{% url "webapp:project_delete" obj.pk %}" class="text-center">
         {% csrf_token %}
         <p><input type="submit" value="Confirm"></p>
-        <p><a href="{% url "project_view" obj.pk %}">Cancel</a></p>
+        <p><a href="{% url "webapp:project_view" obj.pk %}">Cancel</a></p>
     </form>
 {% endblock %}

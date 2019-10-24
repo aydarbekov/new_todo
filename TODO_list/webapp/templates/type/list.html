@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
 {% block menu %}
-   <li><a href="{% url 'type_create' %}">Add Type</a></li>
+   <li><a href="{% url 'webapp:type_create' %}">Add Type</a></li>
 
 {% endblock %}
 {% block content %}
    <h1>Types:</h1>
    <hr/>
-    <form method="POST" action="{% url "mass_delete_types"  %}">
+    <form method="POST" action="{% url "webapp:mass_delete_types"  %}">
         {% csrf_token %}
    {% for type in types %}
        <h2><input type="checkbox" value="{{ type.pk }}" id="{{ type.pk }}" name="del" style="height: 20px; width: 20px"> {{ type.type }}</h2>
-       <a href="{% url 'type_update' type.pk %}">Edit</a>
+       <a href="{% url 'webapp:type_update' type.pk %}">Edit</a>
 
-       <a href="{% url 'type_delete' type.pk %}">Delete</a>
+       <a href="{% url 'webapp:type_delete' type.pk %}">Delete</a>
 
        <hr/>
    {% endfor %}

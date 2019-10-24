@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
 {% block menu %}
-    <li><a href="{% url 'task_create' %}">Add Task</a></li>
-    <li><a href="{% url 'types_view' %}">Types</a></li>
-    <li><a href="{% url 'status_view' %}">Statuses</a></li>
-    <li><a href="{% url 'projects_view' %}">Projects</a></li>
+    <li><a href="{% url 'webapp:task_create' %}">Add Task</a></li>
+    <li><a href="{% url 'webapp:types_view' %}">Types</a></li>
+    <li><a href="{% url 'webapp:status_view' %}">Statuses</a></li>
+    <li><a href="{% url 'webapp:projects_view' %}">Projects</a></li>
 {% endblock %}
 
 {% block content %}
@@ -14,7 +14,7 @@
     {% if is_paginated %}
         {% include 'partial/pagination.html' %}
     {% endif %}
-    <form method="POST" action="{% url "mass_delete"  %}">
+    <form method="POST" action="{% url "webapp:mass_delete"  %}">
         {% csrf_token %}
 
         {% for task in tasks %}
@@ -22,9 +22,9 @@
             <div>Status: {{ task.status }}</div>
             <div>Type: {{ task.type }}</div>
             <div>Create date: {{ task.date }}</div>
-            <a href="{% url 'task_view' task.pk %}">More...</a>
-            <a href="{% url 'task_update' task.pk %}">Edit</a>
-            <a href="{% url 'task_delete' task.pk %}">Delete</a>
+            <a href="{% url 'webapp:task_view' task.pk %}">More...</a>
+            <a href="{% url 'webapp:task_update' task.pk %}">Edit</a>
+            <a href="{% url 'webapp:task_delete' task.pk %}">Delete</a>
             <hr/>
         {% endfor %}
 

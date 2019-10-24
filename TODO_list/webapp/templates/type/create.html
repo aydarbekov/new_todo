@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block menu %}
-    <li><a href="{% url 'types_view' %}">Types</a></li>
+    <li><a href="{% url 'webapp:types_view' %}">Types</a></li>
 {% endblock %}
 {% block title %}
     Create Type
 {% endblock %}
 {% block content %}
    <h1>Create Type</h1>
-   <form action="{% url 'type_create' %}" method="POST">
+   <form action="{% url 'webapp:type_create' %}" method="POST">
         {% include 'partial/task_form.html' with button_text='Create' %}
    </form>
 {% endblock %}

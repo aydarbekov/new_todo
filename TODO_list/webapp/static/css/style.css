@@ -1,5 +1,6 @@
 body {
     margin-top: 60px;
+    background-color: aqua;
 }
 
 .navbar {
@@ -18,8 +19,12 @@ body {
     line-height: 1;
     padding: 0;
     margin: 0;
-    display: inline-block;
+    /*display: inline-block;*/
     color: #fffee8;
+    display: block;
+}
+.menu-right {
+    float: right;
 }
 .menu li {
     display: inline-block;

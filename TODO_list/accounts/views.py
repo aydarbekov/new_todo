@@ -18,6 +18,8 @@ def register_view(request):
             user = User(
                 username=form.cleaned_data['username'],
                 email=form.cleaned_data['email'],
+                first_name=form.cleaned_data['first_name'],
+                last_name=form.cleaned_data['last_name'],
                 is_active=False
             )
             user.set_password(form.cleaned_data['password'])

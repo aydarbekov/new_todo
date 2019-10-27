@@ -19,18 +19,6 @@ class UserCreationForm(forms.Form):
     first_name = forms.CharField(max_length=100, label='first_name', required=False,)
     last_name = forms.CharField(max_length=100, label='last_name', required=False,)
 
-    def clean_first_name_last_name(self):
-        first_name = self.cleaned_data.get('first_name')
-        last_name =  self.cleaned_data.get('last_name')
-        print(first_name, '!!!!')
-        print(last_name, '@@@@@')
-
-        if first_name == '' and last_name == None:
-            print('###########')
-            raise ValidationError('You should to write first or last name',
-                            code='user_name')
-
-
     def clean_email(self):
         email = self.cleaned_data.get('email')
         try:
@@ -61,5 +49,10 @@ class UserCreationForm(forms.Form):
         elif first_name == '' and last_name == '':
             raise ValidationError('You should to write first or last name',
                             code='user_name')
+        # elif first_name != '':
+        #     return first_name
+        # elif last_name != '':
+        #     return last_name
+
         return self.cleaned_data
 

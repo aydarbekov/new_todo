@@ -1,12 +1,13 @@
 from django.contrib.auth import login
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from django.views.generic import DetailView
+from django.views.generic import DetailView, UpdateView
 
 from TODO_list.settings import HOST_NAME
 from accounts.models import Token
-from .forms import UserCreationForm
+from .forms import UserCreationForm, UserChangeForm
 
 
 def register_view(request):
@@ -66,3 +67,16 @@ class UserDetailView(DetailView):
     model = User
     template_name = 'user_detail.html'
     context_object_name = 'user_obj'
+
+
+class UserChangeView(UserPassesTestMixin, UpdateView):
+    model = User
+    template_name = 'user_update.html'
+    context_object_name = 'user_obj'
+    form_class = UserChangeForm
+
+    def test_func(self):
+        return self.get_object() == self.request.user
+
+    def get_success_url(self):
+        return reverse('accounts:user_detail', kwargs={'pk': self.object.pk})

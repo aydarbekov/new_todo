@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block menu %}
+    {% if request.user.is_authenticated %}
+        <li><a href="{% url 'webapp:project_create' %}">Add Project</a></li>
+    {% endif %}
+    <li><a href="{% url 'webapp:project_create' %}">Add Project</a></li>
+{% endblock %}
+
+{% block content %}
+    {% include 'partial/simple_search.html' %}
+    <h1>Projects:</h1>
+    <hr/>
+    {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
+        {% for profile in profiles %}
+            <a href="{% url 'accounts:user_detail' profile.pk %}">{{ profile.username }}</a>
+            <hr/>
+        {% endfor %}
+
+    {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
+{% endblock %}

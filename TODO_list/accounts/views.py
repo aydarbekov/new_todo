@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from django.views.generic import DetailView, UpdateView
+from django.views.generic import DetailView, UpdateView, ListView
 
 from TODO_list.settings import HOST_NAME
 from accounts.models import Token
@@ -99,3 +99,11 @@ class UserPasswordChangeView(UpdateView):
 
     def get_success_url(self):
         return reverse('accounts:login')
+
+
+class ProfilesListView(ListView):
+    template_name = 'profiles.html'
+    context_object_name = 'profiles'
+    model = User
+    paginate_by = 10
+    paginate_orphans = 1

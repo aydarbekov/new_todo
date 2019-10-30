@@ -2,6 +2,7 @@ from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.urls import reverse
+from django.views.generic import DetailView
 
 from TODO_list.settings import HOST_NAME
 from accounts.models import Token
@@ -59,3 +60,9 @@ def user_activate(request):
     except Token.DoesNotExist:
         # если токена нет - сразу редирект
         return redirect('webapp:index')
+
+
+class UserDetailView(DetailView):
+    model = User
+    template_name = 'user_detail.html'
+    context_object_name = 'user_obj'

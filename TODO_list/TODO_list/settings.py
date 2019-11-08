@@ -133,3 +133,6 @@ EMAIL_HOST_PASSWORD = '9ef7c1717c6756'
 EMAIL_PORT = '2525'
 
 HOST_NAME = 'localhost:8000'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+MEDIA_URL = '/uploads/'

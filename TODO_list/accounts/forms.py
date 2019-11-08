@@ -7,6 +7,8 @@ from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
+from accounts.models import Profile
+
 
 class UserCreationForm(forms.Form):
     username = forms.CharField(max_length=100, label='Username', required=True)
@@ -58,9 +60,31 @@ class UserCreationForm(forms.Form):
 
 
 class UserChangeForm(forms.ModelForm):
+    avatar = forms.ImageField(label='Аватар', required=False)
+    about = forms.CharField(label='О себе', required=False)
+    github_profile = forms.URLField(label='Профиль GitHub', required=False)
+
+    def get_initial_for_field(self, field, field_name):
+        if field_name in self.Meta.profile_fields:
+            return getattr(self.instance.profile, field_name)
+        return super().get_initial_for_field(field, field_name)
+
+    def save(self, commit=True):
+        user = super().save(commit=commit)
+        self.save_profile(commit)
+        return user
+
+    def save_profile(self, commit=True):
+        profile, _ = Profile.objects.get_or_create(user=self.instance)
+        for field in self.Meta.profile_fields:
+            setattr(profile, field, self.cleaned_data.get(field))
+        if commit:
+            profile.save()
+
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email']
+        fields = ['first_name', 'last_name', 'email', 'avatar', 'about', 'github_profile']
+        profile_fields = ['avatar', 'about', 'github_profile']
 
 
 class UserChangePasswordForm(forms.ModelForm):

@@ -18,5 +18,5 @@
     <p>Фамилия: {{ user_obj.last_name }}</p>
     <p>О себе: {{ user_obj.profile.about }}</p>
     <p>Почта: {{ user_obj.email }}</p>
-    <p>GitHub: {{ user_obj.profile.github_profile }}</p>
+    <p>GitHub: <a href="{{ user_obj.profile.github_profile }}">{{ user_obj.profile.github_profile }}</a></p>
 {% endblock %}

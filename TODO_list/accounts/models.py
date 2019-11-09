@@ -2,6 +2,10 @@ from django.contrib.auth.models import User
 from django.db import models
 from uuid import uuid4
 
+from django.forms import DateField
+
+from webapp.models import Project
+
 
 class Token(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE,
@@ -18,10 +22,23 @@ class Profile(models.Model):
     about = models.TextField(null=True, blank=True, verbose_name='О себе')
     github_profile = models.URLField(null=True, blank=True, verbose_name='Профиль на  Github')
 
-
     def __str__(self):
         return self.user.get_full_name() + "'s Profile"
 
     class Meta:
         verbose_name = 'Профиль'
         verbose_name_plural = 'Профили'
+
+
+class Team(models.Model):
+    user = models.ForeignKey(User, related_name='team_user', null=True, blank=False, on_delete=models.CASCADE, verbose_name='Пользователь')
+    projects = models.ForeignKey(Project, related_name='team_project', null=True, blank=False, on_delete=models.CASCADE, verbose_name='Проект')
+    start_date = models.DateField(null=True, blank=True, verbose_name='Дата начала')
+    end_date = models.DateField(null=True, blank=True, verbose_name='Дата окончания')
+
+    def __str__(self):
+        return f'{self.projects.name} - {self.user}'
+
+    class Meta:
+        verbose_name = 'Команда'
+        verbose_name_plural = 'Команды'

@@ -5,6 +5,10 @@
         <li><a href="{% url 'webapp:task_update' task.pk %}">Edit</a></li>
         <li><a href="{% url 'webapp:task_delete' task.pk %}">Delete</a></li>
     {% endif %}
+{#    {% if request.user.is_authenticated and request.user.team_user.project == task.project.pk%}#}
+{#        <li><a href="{% url 'webapp:task_update' task.pk %}">Edit</a></li>#}
+{#        <li><a href="{% url 'webapp:task_delete' task.pk %}">Delete</a></li>#}
+{#    {% endif %}#}
 {% endblock %}
 {% block content %}
    <div class="container">

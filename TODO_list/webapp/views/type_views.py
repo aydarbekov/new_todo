@@ -26,7 +26,7 @@ class TypeCreateView(LoginRequiredMixin, CreateView):
     form_class = TypeForm
 
     def get_success_url(self):
-        return reverse('types_view')
+        return reverse('webapp:types_view')
 
 
 class TypeUpdateView(LoginRequiredMixin, UpdateView):
@@ -35,12 +35,12 @@ class TypeUpdateView(LoginRequiredMixin, UpdateView):
     form_class = TypeForm
     context_object_name = 'obj'
     def get_success_url(self):
-        return reverse('types_view')
+        return reverse('webapp:types_view')
 
 
 class TypeDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'type/delete.html'
     model = Type
     context_object_name = 'obj'
-    success_url = reverse_lazy('types_view')
+    success_url = reverse_lazy('webapp:types_view')
 

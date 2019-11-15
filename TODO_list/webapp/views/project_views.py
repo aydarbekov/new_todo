@@ -1,8 +1,11 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from datetime import datetime
+
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-
+from accounts.models import Team
 from webapp.models import Project
 from webapp.forms import TaskForm, ProjectForm, SimpleSearchForm
 from webapp.views.base_views import MassDeleteView
@@ -78,6 +81,14 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
     model = Project
     form_class = ProjectForm
 
+    def form_valid(self, form):
+        myself = self.request.user
+        self.object = form.save()
+        date = datetime.now()
+        pk = self.object.pk
+        Team.objects.create(user=myself, projects=self.object, start_date=date)
+        return redirect('webapp:project_view', pk)
+
     def get_success_url(self):
         return reverse('project_view', kwargs={'pk': self.object.pk})
 
@@ -95,5 +106,5 @@ class ProjectDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'project/delete.html'
     model = Project
     context_object_name = 'obj'
-    success_url = reverse_lazy('projects_view')
+    success_url = reverse_lazy('webapp:projects_view')
 

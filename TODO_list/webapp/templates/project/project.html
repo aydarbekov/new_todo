@@ -29,13 +29,26 @@
     {% empty %}
         <p>No tasks yet.</p>
     {% endfor %}
+    {% if request.user.is_authenticated %}
+        <form action="{% url 'webapp:project_task_create' project.pk %}" method="POST" id="add_task">
+            {% include 'partial/task_form.html' with button_text='Add task' %}
+        </form>
+    {% endif %}
+
+
+    <hr/>
+    <h3>Users in project:</h3>
+    {% for account in project.team_project.all %}
+        <div class="task">
+            <p><b>{{ account.user }}</b> created at {{ account.start_date }}, finish at {{ account.end_date }}</p>
+        </div>
+    {% empty %}
+        <p>No users yet.</p>
+    {% endfor %}
     {% if is_paginated %}
         {% include 'partial/pagination.html' %}
     {% endif %}
-    {% if request.user.is_authenticated %}
-        <form action="{% url 'webapp:project_task_create' project.pk %}" method="POST" id="add_task">
-            {% include 'partial/task_form.html' with button_text='Add' %}
-        </form>
-    {% endif %}
+
+
 
 {% endblock %}

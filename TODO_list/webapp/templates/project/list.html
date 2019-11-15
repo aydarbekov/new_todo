@@ -4,7 +4,6 @@
     {% if request.user.is_authenticated %}
         <li><a href="{% url 'webapp:project_create' %}">Add Project</a></li>
     {% endif %}
-    <li><a href="{% url 'webapp:project_create' %}">Add Project</a></li>
 {% endblock %}
 
 {% block content %}

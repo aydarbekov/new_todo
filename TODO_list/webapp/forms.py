@@ -21,6 +21,7 @@ class StatusForm(forms.ModelForm):
         model = Status
         fields = ['status']
 
+
 class ProjectTaskForm(forms.ModelForm):
     class Meta:
         model = Task

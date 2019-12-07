@@ -89,6 +89,13 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
         Team.objects.create(user=myself, projects=self.object, start_date=date)
         return redirect('webapp:project_view', pk)
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        pk = self.kwargs.get('pk')
+        kwargs['project_pk'] = pk
+        kwargs['myself'] = self.request.user
+        return kwargs
+
     def get_success_url(self):
         return reverse('project_view', kwargs={'pk': self.object.pk})
 
